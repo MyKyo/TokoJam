@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Menambahkan viewport meta tag untuk responsivitas -->
     <title>Detail Produk</title>
     <style>
         body {
@@ -75,6 +76,36 @@
             margin-top: 1rem;
             display: none;
         }
+
+        /* Media Query untuk perangkat dengan layar kecil */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            img {
+                max-height: 250px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            form input,
+            form select,
+            form textarea {
+                padding: 0.5rem;
+            }
+
+            button {
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -106,7 +137,7 @@
                 Kembali ke Beranda</a>
         </form>
 
-        <div class="message" id="success-message">Produk berhasil dibeli dan akan dikirim .</div>
+        <div class="message" id="success-message">Produk berhasil dibeli dan akan dikirim.</div>
     </div>
 
     <script>
@@ -150,7 +181,6 @@
                 deskripsi: "High-performance smartwatch with AMOLED display",
                 gambar: "img/6.jpg"
             }
-
         };
 
         if (produk[id]) {
