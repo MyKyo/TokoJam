@@ -6,348 +6,247 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TokoJam - Premium Watch Store</title>
     <style>
-        html,
-        body {
-            height: 100%;
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2c3e50;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
+        
         body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            color: #2c3e50;
-            line-height: 1.6;
+            min-height: 100vh;
         }
-
+        
         header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: #fff;
-            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: var(--white);
+            padding: 1.5rem 0;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
         }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            padding: 1.2rem 0;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Mobile-first navigation */
+        .nav-container {
             position: sticky;
             top: 0;
             z-index: 1000;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
         }
-
-        nav a {
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.7rem 1.2rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-
-        nav a:hover {
-            background-color: #3498db;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        main {
-            flex: 1;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-        }
-
-        .product-box {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .product-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-box img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 5px;
-            background-color: #f8f9fa;
-            padding: 10px;
-        }
-
-        .price {
-            color: #3498db;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
-        footer {
-            background-color: #222;
-            color: #fff;
-            text-align: center;
-            padding: 1rem 0;
-        }
-
-        /* Styling untuk welcome-box dengan font tebal */
-        .welcome-box {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            /* Lebih ringan untuk gaya minimalis */
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Font minimalis dan modern */
-        }
-
-        .welcome-box h2 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            /* Ukuran font lebih besar */
-            font-weight: 800;
-            /* Menggunakan font-weight lebih tebal */
-            margin-bottom: 1rem;
-            letter-spacing: 0.5px;
-            /* Sedikit jarak antar huruf untuk gaya yang lebih rapi */
-        }
-
-        .welcome-box p {
-            color: #555;
-            /* Warna lebih netral dan lebih ringan */
-            font-size: 1.2rem;
-            /* Ukuran font yang lebih besar untuk keterbacaan */
-            line-height: 1.6;
-            /* Spasi antar baris lebih besar untuk kenyamanan membaca */
-            font-weight: 500;
-            /* Gaya font lebih tebal agar mudah terbaca */
-            max-width: 750px;
-            /* Maksimal lebar untuk membuat teks lebih rapi */
-            margin: 0 auto;
-            text-align: justify;
-            /* Rata kanan kiri agar lebih rapi */
-        }
-
-        /* Tambahkan sedikit efek hover pada welcome-box */
-        .welcome-box:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            /* Efek hover ringan */
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            /* Mengatur menjadi 3 kolom */
-            gap: 2rem;
-            padding: 2rem;
-        }
-
-        @media screen and (max-width: 1024px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-                /* 2 kolom saat ukuran layar sedang */
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-                /* 1 kolom saat ukuran layar kecil */
-            }
-        }
-
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
+        
+        .hamburger-menu {
+            display: flex;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            width: 30px;
-            height: 25px;
-            justify-content: space-between;
+            padding: 1rem;
+            width: 44px;
+            margin-left: auto;
         }
-
-        .hamburger div {
+        
+        .hamburger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-dark);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: none;
+            flex-direction: column;
+            background-color: var(--white);
+            padding: 0.5rem 0;
+        }
+        
+        nav.active {
+            display: flex;
+        }
+        
+        nav a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        main {
+            flex: 1;
+            padding: 1rem;
+        }
+        
+        .page-section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
             width: 100%;
-            height: 5px;
-            background-color: #fff;
         }
-
-        /* Media Query for Small Screens (Android) */
-        @media screen and (max-width: 768px) {
-            nav {
-                display: none;
-                /* Initially hide the navigation */
-                flex-direction: column;
-                width: 100%;
-                background-color: #fff;
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Welcome/About/Contact Box */
+        .content-box {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .content-box h2 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .content-box p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        /* Product Grid - Mobile first (single column) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+        
+        .product-box {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .product-box:active {
+            transform: scale(0.98);
+        }
+        
+        .product-image-container {
+            background-color: var(--light-gray);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .product-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 180px;
+        }
+        
+        .product-info {
+            padding: 1.2rem;
+        }
+        
+        .product-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .price {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .product-box p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 600px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-box {
+                padding: 2rem;
             }
         }
-
-            nav {
-                display: flex;
-                justify-content: center;
-                gap: 1.5rem;
-                padding: 1.2rem 0;
-                background-color: #fff;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-            }
-
-            nav a {
-                color: #2c3e50;
-                text-decoration: none;
-                font-weight: 600;
-                padding: 0.7rem 1.2rem;
-                border-radius: 25px;
-                transition: all 0.3s ease;
-                text-transform: uppercase;
-                font-size: 0.9rem;
-                letter-spacing: 0.5px;
-            }
-
-            nav a:hover {
-                background-color: #3498db;
-                color: #fff;
-                transform: translateY(-2px);
-            }
-
+        
+        @media (min-width: 900px) {
             .hamburger-menu {
                 display: none;
-                flex-direction: column;
-                gap: 5px;
-                cursor: pointer;
-                padding: 10px;
             }
-
-            .hamburger-menu div {
-                width: 25px;
-                height: 3px;
-                background-color: #2c3e50;
-                border-radius: 5px;
-                transition: transform 0.3s ease;
+            
+            nav {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                padding: 0;
             }
-
-            /* Responsive Styles */
-            @media screen and (max-width: 768px) {
-                nav {
-                    display: none;
-                    flex-direction: column;
-                    gap: 0;
-                }
-
-                nav.active {
-                    display: flex;
-                }
-
-                .hamburger-menu {
-                    display: flex;
-                }
-
-                .hamburger-menu.active div:nth-child(1) {
-                    transform: translateY(8px) rotate(45deg);
-                }
-
-                .hamburger-menu.active div:nth-child(2) {
-                    opacity: 0;
-                }
-
-                .hamburger-menu.active div:nth-child(3) {
-                    transform: translateY(-8px) rotate(-45deg);
-                }
+            
+            nav a {
+                padding: 1rem 1.5rem;
+                border-radius: 25px;
+                margin: 0.5rem;
             }
-
+            
             .product-grid {
-                display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 2rem;
-                padding: 2rem;
             }
-
-            /* Other existing styles */
-            .page-section {
-                display: none;
-            }
-
-            .page-section.active {
-                display: block;
-            }
-
-            footer {
-                background-color: #222;
-                color: #fff;
-                text-align: center;
-                padding: 1rem 0;
-            }
-
-            .welcome-box {
-                background-color: #fff;
-                border: 1px solid #ddd;
-                border-radius: 12px;
-                padding: 2rem;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-                max-width: 800px;
-                margin: 0 auto;
-                text-align: center;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-
-            .welcome-box h2 {
-                color: #2c3e50;
-                font-size: 2.5rem;
-                font-weight: 800;
-                margin-bottom: 1rem;
-                letter-spacing: 0.5px;
-            }
-
-            .welcome-box p {
-                color: #555;
-                font-size: 1.2rem;
-                line-height: 1.6;
-                font-weight: 500;
-                max-width: 750px;
-                margin: 0 auto;
-                text-align: justify;
-            }
-
-            html {
-                scroll-behavior: smooth;
-            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 
@@ -357,121 +256,108 @@
         <p>Your one-stop shop for quality watches</p>
     </header>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
-    <!-- Hamburger Menu -->
-    <div class="hamburger-menu" id="hamburger-menu">
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="nav-container">
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav id="main-nav">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </div>
-
 
     <main>
         <div id="home" class="page-section active">
-            <div class="welcome-box">
+            <div class="content-box">
                 <h2>Welcome to TokoJam</h2>
-                <p>At TokoJam, we are passionate about providing the finest collection of premium timepieces for those
-                    who appreciate quality, precision, and style. Whether you are a watch enthusiast or just looking for
-                    that perfect accessory, our carefully curated selection offers something for everyone.</p>
-                <p>Each watch in our collection is meticulously selected for its craftsmanship, durability, and
-                    elegance. We offer a range of watches, from classic luxury pieces to cutting-edge smartwatches, all
-                    designed to complement your lifestyle and keep you on time in every moment.</p>
-                <p>Explore our range of watches and find the perfect one that suits your style, whether for daily wear,
-                    special occasions, or a thoughtful gift for someone special. With a commitment to excellence and
-                    customer satisfaction, shopping at TokoJam is more than just a purchase – it's an experience.</p>
-                <p>Browse, shop, and elevate your wrist game with TokoJam. Your perfect watch is just a click away.</p>
+                <p>At TokoJam, we are passionate about providing the finest collection of premium timepieces for those who appreciate quality, precision, and style. Whether you are a watch enthusiast or just looking for that perfect accessory, our carefully curated selection offers something for everyone.</p>
+                <p>Each watch in our collection is meticulously selected for its craftsmanship, durability, and elegance. We offer a range of watches, from classic luxury pieces to cutting-edge smartwatches, all designed to complement your lifestyle and keep you on time in every moment.</p>
             </div>
         </div>
-
-
 
         <div id="products" class="page-section">
-            <h2>Our Featured Products</h2>
+            <h2 style="text-align: center; margin: 1.5rem 0;">Our Featured Products</h2>
             <div class="product-grid">
                 <a href="barang.html?id=1" class="product-box">
-                    <img src="img/1.jpg" alt="Luxury Watch" />
-                    <h3>Luxury Watch Classic</h3>
-                    <p class="price">$299.99</p>
-                    <p>Premium stainless steel watch with leather strap</p>
+                    <div class="product-image-container">
+                        <img src="img/1.jpg" alt="Luxury Watch Classic" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Watch Classic</h3>
+                        <p class="price">$299.99</p>
+                        <p>Premium stainless steel watch with leather strap</p>
+                    </div>
                 </a>
                 <a href="barang.html?id=2" class="product-box">
-                    <img src="img/2.jpg" alt="Sport Watch" />
-                    <h3>Sport Watch Pro</h3>
-                    <p class="price">$199.99</p>
-                    <p>Water resistant sports watch with digital display</p>
+                    <div class="product-image-container">
+                        <img src="img/2.jpg" alt="Sport Watch Pro" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Sport Watch Pro</h3>
+                        <p class="price">$199.99</p>
+                        <p>Water resistant sports watch with digital display</p>
+                    </div>
                 </a>
                 <a href="barang.html?id=3" class="product-box">
-                    <img src="img/3.jpg" alt="Smart Watch" />
-                    <h3>Smart Watch Elite</h3>
-                    <p class="price">$399.99</p>
-                    <p>Advanced smartwatch with health monitoring</p>
+                    <div class="product-image-container">
+                        <img src="img/3.jpg" alt="Smart Watch Elite" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Smart Watch Elite</h3>
+                        <p class="price">$399.99</p>
+                        <p>Advanced smartwatch with health monitoring</p>
+                    </div>
                 </a>
-                <!-- New Products -->
                 <a href="barang.html?id=4" class="product-box">
-                    <img src="img/4.jpg" alt="Luxury Watch Rose" />
-                    <h3>Luxury Watch Rose</h3>
-                    <p class="price">$349.99</p>
-                    <p>Elegant rose gold watch with a leather band</p>
+                    <div class="product-image-container">
+                        <img src="img/4.jpg" alt="Luxury Watch Rose" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Watch Rose</h3>
+                        <p class="price">$349.99</p>
+                        <p>Elegant rose gold watch with a leather band</p>
+                    </div>
                 </a>
                 <a href="barang.html?id=5" class="product-box">
-                    <img src="img/5.jpg" alt="Fitness Watch" />
-                    <h3>Fitness Watch 360</h3>
-                    <p class="price">$229.99</p>
-                    <p>Fitness tracker with heart rate monitoring and GPS</p>
+                    <div class="product-image-container">
+                        <img src="img/5.jpg" alt="Fitness Watch 360" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Fitness Watch 360</h3>
+                        <p class="price">$229.99</p>
+                        <p>Fitness tracker with heart rate monitoring and GPS</p>
+                    </div>
                 </a>
                 <a href="barang.html?id=6" class="product-box">
-                    <img src="img/6.jpg" alt="Smart Watch Pro" />
-                    <h3>Smart Watch Pro</h3>
-                    <p class="price">$499.99</p>
-                    <p>High-performance smartwatch with AMOLED display</p>
+                    <div class="product-image-container">
+                        <img src="img/6.jpg" alt="Smart Watch Pro" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Smart Watch Pro</h3>
+                        <p class="price">$499.99</p>
+                        <p>High-performance smartwatch with AMOLED display</p>
+                    </div>
                 </a>
             </div>
         </div>
 
-
         <div id="about" class="page-section">
-            <div class="welcome-box">
+            <div class="content-box">
                 <h2>About TokoJam</h2>
-                <p>TokoJam is a premium watch store offering timeless pieces for every occasion. We bring you the finest
-                    in both style and functionality. Whether you're looking for a luxury timepiece, a rugged sports
-                    watch, or a cutting-edge smartwatch, TokoJam is your one-stop destination for the highest quality
-                    watches.</p>
-                <p>Founded with the vision of providing watches that not only tell time but also tell a story, TokoJam
-                    strives to offer a collection that reflects our passion for craftsmanship, precision, and design.
-                    Each piece is carefully curated to meet the highest standards, combining sophistication and
-                    durability in every design.</p>
-                <p>Our commitment goes beyond just offering watches; we aim to provide an exceptional experience for our
-                    customers. From the moment you step into our store or browse our online shop, you'll find a team
-                    dedicated to helping you select the perfect timepiece that matches your style, needs, and budget.
-                    Our customer service is second to none, and we pride ourselves on offering personalized
-                    recommendations to make your shopping experience seamless and enjoyable.</p>
-                <p>At TokoJam, we believe that a great watch is more than just a tool for telling time – it’s a
-                    reflection of who you are. That's why we partner with some of the most renowned brands in the
-                    watchmaking industry to bring you exclusive designs and limited-edition pieces. Whether it's the
-                    elegance of a classic analog watch or the modern features of a smartwatch, we have something to suit
-                    every lifestyle.</p>
-                <p>In addition to our extensive range of watches, we also offer repair and maintenance services to
-                    ensure your timepiece continues to perform at its best. Our skilled technicians are trained to
-                    handle a wide variety of watch models and brands, and we use only the best tools and parts to
-                    maintain the integrity of your watch.</p>
-                <p>Explore TokoJam today and find your next perfect timepiece. With our commitment to quality,
-                    exceptional service, and an ever-growing collection of watches, we're confident that you'll find
-                    exactly what you're looking for.</p>
+                <p>TokoJam is a premium watch store offering timeless pieces for every occasion. We bring you the finest in both style and functionality. Whether you're looking for a luxury timepiece, a rugged sports watch, or a cutting-edge smartwatch, TokoJam is your one-stop destination for the highest quality watches.</p>
+                <p>Founded with the vision of providing watches that not only tell time but also tell a story, TokoJam strives to offer a collection that reflects our passion for craftsmanship, precision, and design. Each piece is carefully curated to meet the highest standards, combining sophistication and durability in every design.</p>
             </div>
         </div>
 
-
-
         <div id="contact" class="page-section">
-            <div class="welcome-box">
+            <div class="content-box">
                 <h2>Contact Us</h2>
-                <p>Email us at <a href="mailto:info@tokojam.com">info@tokojam.com</a> or call 123-456-7890.</p>
+                <p>Email us at <a href="mailto:info@tokojam.com" style="color: var(--primary-color);">info@tokojam.com</a> or call 123-456-7890.</p>
+                <p>Our customer service team is available Monday to Friday, 9am to 5pm.</p>
             </div>
         </div>
     </main>
@@ -481,36 +367,44 @@
     </footer>
 
     <script>
-        // Toggle navigation menu on hamburger click
+        // Mobile navigation toggle
         const hamburgerMenu = document.getElementById('hamburger-menu');
-        const nav = document.querySelector('nav');
-
+        const mainNav = document.getElementById('main-nav');
+        
         hamburgerMenu.addEventListener('click', () => {
-            nav.classList.toggle('active');
+            mainNav.classList.toggle('active');
             hamburgerMenu.classList.toggle('active');
         });
-
-        const links = document.querySelectorAll("nav a");
-        const sections = document.querySelectorAll(".page-section");
-
-        links.forEach(link => {
-            link.addEventListener("click", e => {
+        
+        // Section switching
+        const navLinks = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('.page-section');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const targetId = link.getAttribute("href").substring(1);
-
-                sections.forEach(section => section.classList.remove("active"));
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.add("active");
-                }
-
-                // Close the hamburger menu after selecting an item
-                nav.classList.remove('active');
+                const targetId = link.getAttribute('href').substring(1);
+                
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                document.getElementById(targetId).classList.add('active');
+                
+                // Close mobile menu if open
+                mainNav.classList.remove('active');
                 hamburgerMenu.classList.remove('active');
+                
+                // Smooth scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
-
 </body>
 
 </html>
