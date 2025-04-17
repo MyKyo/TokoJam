@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Detail Produk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        form {
+            margin-top: 2rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        form select {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img id="product-image" src="" alt="Product Image">
+        <h2 id="product-name">Product Name</h2>
+        <p id="product-price">Price: $0.00</p>
+        <p id="product-description">Description goes here...</p>
+
+        <form id="purchase-form">
+            <h3>Formulir Pembelian</h3>
+            <input type="text" name="nama" placeholder="Nama Lengkap" required />
+            <input type="text" name="alamat" placeholder="Alamat Lengkap" required />
+            <input type="number" name="jumlah" placeholder="Jumlah" min="1" required />
+            <select required>
+                <option value="">-- Pilih Metode Pembayaran --</option>
+                <option value="dana">DANA</option>
+                <option value="paypal">PayPal</option>
+                <option value="ovo">OVO</option>
+                <option value="gopay">GoPay</option>
+                <option value="transfer">Transfer Bank</option>
+                <option value="cod">COD (Bayar di Tempat)</option>
+            </select>
+            <textarea name="catatan" placeholder="Catatan tambahan (opsional)"></textarea>
+            <button type="submit">Beli Sekarang</button>
+            <a href="index.html"
+                style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background-color: #ccc; color: #333; text-decoration: none; border-radius: 5px; font-weight: bold;">←
+                Kembali ke Beranda</a>
+        </form>
+
+        <div class="message" id="success-message">Produk berhasil dibeli dan akan dikirim .</div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        const produk = {
+            1: {
+                nama: "Luxury Watch Classic",
+                harga: "$299.99",
+                deskripsi: "Premium stainless steel watch with leather strap",
+                gambar: "img/1.jpg"
+            },
+            2: {
+                nama: "Sport Watch Pro",
+                harga: "$199.99",
+                deskripsi: "Water resistant sports watch with digital display",
+                gambar: "img/2.jpg"
+            },
+            3: {
+                nama: "Smart Watch Elite",
+                harga: "$399.99",
+                deskripsi: "Advanced smartwatch with health monitoring",
+                gambar: "img/3.jpg"
+            },
+            4: {
+                nama: "Luxury Watch Rose",
+                harga: "$349.99",
+                deskripsi: "Elegant rose gold watch with a leather band",
+                gambar: "img/4.jpg"
+            },
+            5: {
+                nama: "Fitness Watch 360",
+                harga: "$229.99",
+                deskripsi: "Fitness tracker with heart rate monitoring and GPS",
+                gambar: "img/5.jpg"
+            },
+            6: {
+                nama: "Smart Watch Pro",
+                harga: "$499.99",
+                deskripsi: "High-performance smartwatch with AMOLED display",
+                gambar: "img/6.jpg"
+            }
+
+        };
+
+        if (produk[id]) {
+            const data = produk[id];
+            document.getElementById('product-name').textContent = data.nama;
+            document.getElementById('product-price').textContent = "Price: " + data.harga;
+            document.getElementById('product-description').textContent = data.deskripsi;
+            document.getElementById('product-image').src = data.gambar;
+            document.getElementById('product-image').alt = data.nama;
+        } else {
+            document.querySelector('.container').innerHTML = '<p>Produk tidak ditemukan.</p>';
+        }
+
+        // Menangani pengiriman form
+        document.getElementById('purchase-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            document.getElementById('success-message').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('success-message').style.display = 'none';
+            }, 5000); // Pesan akan hilang setelah 5 detik
+        });
+    </script>
+</body>
+
+</html>
